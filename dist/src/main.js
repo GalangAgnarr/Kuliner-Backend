@@ -13,9 +13,10 @@ async function bootstrap() {
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup('api-docs', app, document);
-    await app.listen(3000);
-    console.log('Server running at http://localhost:3000');
-    console.log('Swagger docs at http://localhost:3000/api-docs');
+    const port = process.env.PORT || 3000;
+    await app.listen(port);
+    console.log(`Server running at http://localhost:${port}`);
+    console.log(`Swagger docs at http://localhost:${port}/api-docs`);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
