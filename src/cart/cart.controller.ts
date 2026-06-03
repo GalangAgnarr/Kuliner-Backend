@@ -1,12 +1,15 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, ParseIntPipe, UseGuards, Request } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { CartService } from './cart.service';
-import { AddToCartDto, AddMultipleToCartDto, UpdateCartItemDto } from './dto/cart.dto';
+import { AddToCartDto, UpdateCartItemDto } from './dto/cart.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
+@ApiTags('Cart')
+@ApiBearerAuth()
 @Controller('cart')
 @UseGuards(JwtAuthGuard)
 export class CartController {
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService) { }
 
   @Get()
   getCart(@Request() req) {
@@ -16,11 +19,6 @@ export class CartController {
   @Post()
   addToCart(@Request() req, @Body() dto: AddToCartDto) {
     return this.cartService.addToCart(req.user.id, dto);
-  }
-
-  @Post('bulk')
-  addMultipleToCart(@Request() req, @Body() dto: AddMultipleToCartDto) {
-    return this.cartService.addMultipleToCart(req.user.id, dto);
   }
 
   @Put(':itemId')

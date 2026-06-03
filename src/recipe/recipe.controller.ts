@@ -1,15 +1,16 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { RecipeService } from './recipe.service';
 import { CreateRecipeDto, UpdateRecipeDto } from './dto/recipe.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 
+@ApiTags('Recipe')
 @Controller('recipe')
 export class RecipeController {
-  constructor(private recipeService: RecipeService) {}
+  constructor(private recipeService: RecipeService) { }
 
-  // Semua user bisa lihat resep
   @Get()
   findAll() {
     return this.recipeService.findAll();
@@ -25,8 +26,8 @@ export class RecipeController {
     return this.recipeService.findByMenu(menuId);
   }
 
-  // Hanya admin yang bisa kelola resep
   @Post()
+  @ApiBearerAuth()
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
   create(@Body() dto: CreateRecipeDto) {
@@ -34,6 +35,7 @@ export class RecipeController {
   }
 
   @Put(':id')
+  @ApiBearerAuth()
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
   update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateRecipeDto) {
@@ -41,6 +43,7 @@ export class RecipeController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
   remove(@Param('id', ParseIntPipe) id: number) {
