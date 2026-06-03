@@ -1,13 +1,15 @@
 import { Controller, Post, Body, UseGuards } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { RegisterDto, LoginDto } from './dto/auth.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { Roles } from './decorators/roles.decorator';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   @Post('register')
   register(@Body() dto: RegisterDto) {
@@ -15,6 +17,7 @@ export class AuthController {
   }
 
   @Post('register-admin')
+  @ApiBearerAuth()
   @Roles('ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard)
   registerAdmin(@Body() dto: RegisterDto) {

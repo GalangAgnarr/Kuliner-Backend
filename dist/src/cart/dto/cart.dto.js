@@ -1,11 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateCartItemDto = exports.AddToCartDto = void 0;
+exports.UpdateCartItemDto = exports.AddMultipleToCartDto = exports.AddToCartDto = void 0;
 class AddToCartDto {
     menuId;
     quantity;
 }
 exports.AddToCartDto = AddToCartDto;
+class AddMultipleToCartDto {
+    items;
+}
+exports.AddMultipleToCartDto = AddMultipleToCartDto;
 class UpdateCartItemDto {
     quantity;
 }

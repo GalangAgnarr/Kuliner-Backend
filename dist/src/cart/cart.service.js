@@ -64,6 +64,14 @@ let CartService = class CartService {
             include: { menu: true },
         });
     }
+    async addMultipleToCart(userId, dto) {
+        const results = [];
+        for (const item of dto.items) {
+            const result = await this.addToCart(userId, item);
+            results.push(result);
+        }
+        return results;
+    }
     async getCart(userId) {
         const cart = await this.getOrCreateCart(userId);
         const total = cart.items.reduce((sum, item) => sum + item.menu.price * item.quantity, 0);

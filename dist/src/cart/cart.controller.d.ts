@@ -1,5 +1,5 @@
 import { CartService } from './cart.service';
-import { AddToCartDto, UpdateCartItemDto } from './dto/cart.dto';
+import { AddToCartDto, AddMultipleToCartDto, UpdateCartItemDto } from './dto/cart.dto';
 export declare class CartController {
     private cartService;
     constructor(cartService: CartService);
@@ -43,6 +43,7 @@ export declare class CartController {
         menuId: number;
         cartId: number;
     }>;
+    addMultipleToCart(req: any, dto: AddMultipleToCartDto): Promise<any[]>;
     updateCartItem(req: any, itemId: number, dto: UpdateCartItemDto): Promise<{
         id: number;
         quantity: number;

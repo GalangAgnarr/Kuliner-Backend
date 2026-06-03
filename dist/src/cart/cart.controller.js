@@ -28,6 +28,9 @@ let CartController = class CartController {
     addToCart(req, dto) {
         return this.cartService.addToCart(req.user.id, dto);
     }
+    addMultipleToCart(req, dto) {
+        return this.cartService.addMultipleToCart(req.user.id, dto);
+    }
     updateCartItem(req, itemId, dto) {
         return this.cartService.updateCartItem(req.user.id, itemId, dto);
     }
@@ -57,6 +60,14 @@ __decorate([
     __metadata("design:paramtypes", [Object, cart_dto_1.AddToCartDto]),
     __metadata("design:returntype", void 0)
 ], CartController.prototype, "addToCart", null);
+__decorate([
+    (0, common_1.Post)('bulk'),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, cart_dto_1.AddMultipleToCartDto]),
+    __metadata("design:returntype", void 0)
+], CartController.prototype, "addMultipleToCart", null);
 __decorate([
     (0, common_1.Put)(':itemId'),
     __param(0, (0, common_1.Request)()),

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { AddToCartDto, UpdateCartItemDto } from './dto/cart.dto';
+import { AddToCartDto, AddMultipleToCartDto, UpdateCartItemDto } from './dto/cart.dto';
 
 @Injectable()
 export class CartService {
@@ -62,6 +62,16 @@ export class CartService {
       },
       include: { menu: true },
     });
+  }
+
+  // Tambah banyak item ke keranjang sekaligus
+  async addMultipleToCart(userId: number, dto: AddMultipleToCartDto) {
+    const results: any[] = [];
+    for (const item of dto.items) {
+      const result = await this.addToCart(userId, item);
+      results.push(result);
+    }
+    return results;
   }
 
   // Lihat isi keranjang

@@ -1,5 +1,5 @@
 import { PrismaService } from '../prisma/prisma.service';
-import { AddToCartDto, UpdateCartItemDto } from './dto/cart.dto';
+import { AddToCartDto, AddMultipleToCartDto, UpdateCartItemDto } from './dto/cart.dto';
 export declare class CartService {
     private prisma;
     constructor(prisma: PrismaService);
@@ -43,6 +43,7 @@ export declare class CartService {
         menuId: number;
         cartId: number;
     }>;
+    addMultipleToCart(userId: number, dto: AddMultipleToCartDto): Promise<any[]>;
     getCart(userId: number): Promise<{
         total: number;
         items: ({
