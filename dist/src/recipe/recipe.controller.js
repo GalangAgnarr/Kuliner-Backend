@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RecipeController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const recipe_service_1 = require("./recipe.service");
 const recipe_dto_1 = require("./dto/recipe.dto");
 const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
@@ -66,6 +67,7 @@ __decorate([
 ], RecipeController.prototype, "findByMenu", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, roles_decorator_1.Roles)('ADMIN'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
     __param(0, (0, common_1.Body)()),
@@ -75,6 +77,7 @@ __decorate([
 ], RecipeController.prototype, "create", null);
 __decorate([
     (0, common_1.Put)(':id'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, roles_decorator_1.Roles)('ADMIN'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
@@ -85,6 +88,7 @@ __decorate([
 ], RecipeController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, roles_decorator_1.Roles)('ADMIN'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
@@ -93,6 +97,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], RecipeController.prototype, "remove", null);
 exports.RecipeController = RecipeController = __decorate([
+    (0, swagger_1.ApiTags)('Recipe'),
     (0, common_1.Controller)('recipe'),
     __metadata("design:paramtypes", [recipe_service_1.RecipeService])
 ], RecipeController);

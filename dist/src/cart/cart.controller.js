@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CartController = void 0;
 const common_1 = require("@nestjs/common");
+const swagger_1 = require("@nestjs/swagger");
 const cart_service_1 = require("./cart.service");
 const cart_dto_1 = require("./dto/cart.dto");
 const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
@@ -27,9 +28,6 @@ let CartController = class CartController {
     }
     addToCart(req, dto) {
         return this.cartService.addToCart(req.user.id, dto);
-    }
-    addMultipleToCart(req, dto) {
-        return this.cartService.addMultipleToCart(req.user.id, dto);
     }
     updateCartItem(req, itemId, dto) {
         return this.cartService.updateCartItem(req.user.id, itemId, dto);
@@ -60,14 +58,6 @@ __decorate([
     __metadata("design:paramtypes", [Object, cart_dto_1.AddToCartDto]),
     __metadata("design:returntype", void 0)
 ], CartController.prototype, "addToCart", null);
-__decorate([
-    (0, common_1.Post)('bulk'),
-    __param(0, (0, common_1.Request)()),
-    __param(1, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, cart_dto_1.AddMultipleToCartDto]),
-    __metadata("design:returntype", void 0)
-], CartController.prototype, "addMultipleToCart", null);
 __decorate([
     (0, common_1.Put)(':itemId'),
     __param(0, (0, common_1.Request)()),
@@ -100,6 +90,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CartController.prototype, "checkout", null);
 exports.CartController = CartController = __decorate([
+    (0, swagger_1.ApiTags)('Cart'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.Controller)('cart'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __metadata("design:paramtypes", [cart_service_1.CartService])
